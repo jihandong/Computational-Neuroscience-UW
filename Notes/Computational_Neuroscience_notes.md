@@ -92,7 +92,7 @@ LTP/LTD depends on the **relative timing** of input and output spikes: Input bef
 How neurons and synapses become perception, behavior? we dont know much...
 
 ### 1.6 Time to Network: Brain Areas and their Function
-> perihery 外围的; somatic 躯体的; Medulla Oblongata 延髓; Pons 桥脑; Cerebellum 小脑; Midbrain 中脑；Reticular Formation 网状结构; Thalamus 丘脑; Hypothalamus 下丘脑; Cerebral Cortex 大脑皮层
+> perihery 外围的; somatic 躯体的; Medulla Oblongata 延髓; Pons 桥脑; Cerebellum 小脑; Midbrain 中脑；Reticular Formation 蛛网膜; Thalamus 丘脑; Hypothalamus 下丘脑; Cerebral Cortex 大脑皮层
 
 Arch:
 ![alt text](image-11.png)
@@ -109,8 +109,24 @@ Cerebral Cortex is a layered sheet of Neurons, approximately 30 billion neurons,
 
 ![alt text](image-19.png)
 
+# 2 Neuron Encoding Models
+## 2.0 Functions & Vectors
+functions can be regarded as vectors, argument to indices, function values to elements. 
 
+![alt text](image-18.png)
 
+## 2.0 Insight from STA
+We can regard the neuron as filters, they convolve on stimulus signals and output spike, so we get $f_s(x)$, and since it's nonlinear, we add a function wrapper and get $r = g(f_s(x))$
+
+![alt text](image-20.png)
+
+## 2.1 What is the neural code?
+Signal capture techniques:
+- fMRI:
+- EEG:
+- Electrode arrays: can read certain neuron's ouput.
+- calcium imaging: 
+signals inside skill are clearer, ~ inside cells are even clearer
 
 
 
