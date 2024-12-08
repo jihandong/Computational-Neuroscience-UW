@@ -21,10 +21,9 @@ with open(FILENAME, 'rb') as f:
 stim = data['stim']
 rho = data['rho']
 
-
 # Fill in these values
-sampling_period = # in ms
-num_timesteps = 
+sampling_period = 2 # since the sample rate is 500hz
+num_timesteps = 150
 
 sta = compute_sta(stim, rho, num_timesteps)
 
