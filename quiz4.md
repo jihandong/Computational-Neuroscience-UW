@@ -1,17 +1,19 @@
 # Quiz 4
 
-## Question 1
+## Question 1: entropy
 
 Suppose that we have a neuron which, in a given time period, will fire with probability 0.1, yielding a Bernoulli distribution for the neuron's firing (denoted by the random variable F = 0 or 1) with P(F = 1) = 0.1. 
 
 Which of these is closest to the entropy H(F) of this distribution (calculated in bits, i.e., using the base 2 logarithm)?
+
+---
 
 ```python
 import math
 0.1 * math.log(0.1, 2) + 0.9 * math.log(0.9, 2) # 0.4690
 ```
 
-## Question 2
+## Question 2: mutual infomation
 
 Continued from Question 1:
 
@@ -21,3 +23,23 @@ If there is a flash, the neuron will fire with probability 1/2. If there is not 
 
 Which of these is closest, in bits (log base 2 units), to the mutual information MI(S,F)?
 
+---
+
+Given:
+$$
+\begin{align*}
+P(F) &= 0.1 \\
+P(S) &= 0.1 \\
+P(F|S) &= 0.5 \\
+P(F|\~S) &= 1/18
+\end{align*}
+$$
+
+Therefore:
+$$
+\begin{align*}
+I(S;F) &= H(F) - H(F|S) \\
+&= H(F) - E_s(H(F|S=s)) \\
+&= H(F) - P(S) * H(F|S) - P(\~S) * H(F|\~S) \\
+\end{align*}
+$$
