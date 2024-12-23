@@ -5,14 +5,15 @@
 **Entropy**: measure the quantity of *uncertainty*, the amount of infomation.
 
 $$
-e = \sum_i p_i log_2 p_i
+e = -\sum_i p_i log_2 p_i
 $$
 
 **Mutual Infomation**:
 
 $$
 \begin{align*}
-I(S;R) &= H(S) + H(R) - H(SR) \\
+I(S;R)
+&= H(S) + H(R) - H(SR) \\
 &= H(S) - H(S|R) \\
 &= H(R) - H(R|S) \\
 &= D_{KL}[P(R,S), P(R)*P(S)]
@@ -34,4 +35,10 @@ H(S|R) &: \text{Infomations of Stimulus told by Response} \\
 H(R) &: \text{Everything u might heard from Response} \\
 H(R|S) &: \text{Something u heard from Response after Stimulus}
 \end{align*}
+$$
+
+Easier formula to calculate the Mutual Entropy:
+
+$$
+I(S;R) = H(R) - E_s(H(R|S=s))
 $$
