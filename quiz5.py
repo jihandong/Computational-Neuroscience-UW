@@ -11,52 +11,54 @@ translated to Python by rkp 2015
 import numpy as np
 import matplotlib.pyplot as plt
 
-# input current
-I = 10 # nA
+def simulation(I, C, R, label='', color='r'):
+    tau = R*C # = 0.1*100 nF-Mohms = 100*100 pF Mohms = 10 ms
 
-# capacitance and leak resistance
+    print('C = %.3f nF' % C)
+    print('R = %.3f M ohms' % R)
+    print('tau = %.3f ms' % tau)
+    print('(Theoretical)')
 
-C = 0.1 # nF
-R = 100 # M ohms
-tau = R*C # = 0.1*100 nF-Mohms = 100*100 pF Mohms = 10 ms
-print('C = %.3f nF' % C)
-print('R = %.3f M ohms' % R)
-print('tau = %.3f ms' % tau)
-print('(Theoretical)')
+    # membrane potential equation dV/dt = - V/RC + I/C
+    tstop = 150 # ms
+    V_inf = I*R # peak V (in mV)
+    tau = 0 # experimental (ms)
+    h = 0.2 # ms (step size)
+    V = 0 # mV
+    V_trace = [V] # mV
 
-# membrane potential equation dV/dt = - V/RC + I/C
+    for t in np.arange(h, tstop, h):
+        # Euler method: V(t+h) = V(t) + h*dV/dt
+        V = V +h*(- (V/(R*C)) + (I/C))
 
-tstop = 150 # ms
-
-V_inf = I*R # peak V (in mV)
-tau = 0 # experimental (ms)
-
-h = 0.2 # ms (step size)
-
-V = 0 # mV
-V_trace = [V] # mV
-
-for t in np.arange(h, tstop, h):
-
-   # Euler method: V(t+h) = V(t) + h*dV/dt
-   V = V +h*(- (V/(R*C)) + (I/C))
-
-   # Verify membrane time constant
-   if (not tau and (V > 0.6321*V_inf)):
-     tau = t
-     print('tau = %.3f ms' % tau)
-     print('(Experimental)')
+        # Verify membrane time constant
+        if (not tau and (V > 0.6321*V_inf)):
+            tau = t
+            print('tau = %.3f ms' % tau)
+            print('(Experimental)')
 
    
-   # Stop current injection 
-   if t >= 0.6*tstop:
-     I = 0
+        # Stop current injection 
+        if t >= 0.6*tstop:
+            I = 0
 
-   V_trace += [V]
-   if t % 10 == 0:
-       plt.plot(np.arange(0,t+h, h), V_trace, color='r')
-       plt.xlim(0, tstop)
-       plt.ylim(0, V_inf)
-       plt.draw()
-       
+        V_trace += [V]
+        if t % 10 == 0:
+            plt.plot(np.arange(0,t+h, h), V_trace, label=label, color=color)
+            plt.xlim(0, tstop)
+            plt.ylim(0, V_inf)
+            plt.draw()
+    
+    return
+
+# input current
+I = 10 # nA
+# capacitance and leak resistance
+C = 0.1 # nF
+R = 100 # M ohms
+
+simulation(I, C, R, label='base', color='r')
+simulation(I, C, R * 5, label='5R', color='b')
+simulation(I, C / 10.0, R, label='C/10', color='g')
+simulation(I, C / 10.0, R * 10, label='C/10,R*10', color='y')
 plt.show()
