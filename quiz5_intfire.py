@@ -55,4 +55,4 @@ plt.show()
 # Question16: Since the V0 = 0,
 # the threshold current I_th = V_th / R = 0.25 nA = 250 pA
 # Quesion17: If I -> +inf,
-# The firing period is 1 / 6ms = 133 hz
+# The firing period is 1 / 6ms = 166.7 hz
