@@ -19,6 +19,7 @@ M = np.array([
 E_vals, E_vecs = np.linalg.eig(M)
 print("Eigenvalues:\n", E_vals, "\n")
 print("Eigenvectors:\n", E_vecs, "\n")
+# NOTE: symmetric matrices always have orthogonal eigenvectors
 print("eigenvectors are orthogonal (almost):\n",
       np.dot(E_vecs.T, E_vecs), "\n")
 
