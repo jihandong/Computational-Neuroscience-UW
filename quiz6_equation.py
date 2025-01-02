@@ -7,37 +7,27 @@ W = np.array([
     [ 0.1, 0.1, 0.1, 0.6, 0.1 ],
     [ 0.1, 0.1, 0.1, 0.1, 0.6 ]])
 
-u = np.array([[0.6, 0.5, 0.6, 0.2, 0.1]]).T
+u = np.array([[ 0.6, 0.5, 0.6, 0.2, 0.1 ]]).T
 
 M = np.array([
-    [ -0.125, 0, 0.125, 0.125, 0],
-    [ 0, -0.125, 0, 0.125, 0.125],
-    [ 0.125, 0, -0.125, 0, 0.125],
-    [ 0.125, 0.125, 0, -0.125, 0],
-    [ 0, 0.125, 0.125, 0, -0.125]])
+    [ -0.125, 0,      0.125,  0.125,  0      ],
+    [ 0,      -0.125, 0,      0.125,  0.125  ],
+    [ 0.125,  0,      -0.125, 0,      0.125  ],
+    [ 0.125,  0.125,  0,      -0.125, 0      ],
+    [ 0,      0.125,  0.125,  0,      -0.125 ]])
 
 E_vals, E_vecs = np.linalg.eig(M)
+print("Eigenvalues:\n", E_vals, "\n")
+print("Eigenvectors:\n", E_vecs, "\n")
+print("eigenvectors are orthogonal (almost):\n",
+      np.dot(E_vecs.T, E_vecs), "\n")
 
-print(E_vals)
-print(E_vecs)
-
-"""
-for i in range(E_vecs.shape[1]):
-    print(f"M * e      {i} = {np.dot(M, E_vecs[:, i])}")
-    print(f"lambda * e {i} = {E_vals[i] * E_vecs[:, i]}")
-"""
-
-"""
-for i in range(E_vecs.shape[1]):
-    for j in range(i, E_vecs.shape[1]):
-        dot_product = np.dot(E_vecs[:, i], E_vecs[:, j])
-        print(f"Dot product of vector {i+1} and vector {j+1}: {dot_product}")
-"""
 
 h = np.dot(W, u)
-v_ss = np.zeros(h.shape)
+vss = np.zeros(h.shape)
 for i in range(h.shape[0]):
-    v_eig = np.array([E_vecs[i]])
-    v_ss += np.dot(h.T, v_eig.T) / (1 - E_vals[i]) * v_eig.T
+    E_vec = np.array([E_vecs[:,i]]).T
+    vss += np.dot(h.T, E_vec) / (1 - E_vals[i]) * E_vec
 
-print(v_ss)
+print("Stable state:\n", vss, "\n")
+print("Should be zero:\n", -vss + h + np.dot(M, vss), "\n")
