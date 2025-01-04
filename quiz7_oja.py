@@ -23,7 +23,7 @@ for i in range(nb_test):
     for j in range(nb_iter):
         u = x[j % x.shape[0]]
         v = np.dot(u, w)
-        w += dt * eta * v * u - alpha * v**2 * w
+        w += dt * eta * (v * u - alpha * v**2 * w)
         trace[j] = w
         #if j % 10000 == 0:
         #    print(f'test{i}, iter{j}, w=', w)
